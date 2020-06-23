@@ -1,0 +1,25 @@
+#De novo assembly for unmapped reads
+abyss-pe k=96 name=rice lib=’pea’ pea=’LANE5_R1 LANE5_R2’
+
+#using soapdenovo
+SOAPdenovo-127mer –all –s file.config –K 96 –R –o graph_prefix96 1>ass96.log 2>ass96.err
+[LIB]
+avg_ins=180
+asm_flags=3
+rank=1
+q1=LANE5_unmapR1.fastq
+q2=LANE5_unmapR2.fastq
+
+#Assembly quality assessment
+#install quast (github quast)
+python quast.py abyss_scaffolds.fa soapdenovo_scaffolds.fa
+
+#Assembling the contigs
+#SSPACE-Long
+SSPACE-LongRead.pl -c durian_abyss96kmer.fa (contigs seq) -p ref_durioSG.fasta (ref genome) -b abyssVSPacBio
+
+#Scaffolding
+SSPACE-LongRead.pl -c scaffoldsAlnSuperCtg_unmapSOAPdenovo_above200bp.fa -p durioAlnSuperCtg_consensus.fa 
+-b durio_superCtgVSunmapSOAPdenovo
+
+
