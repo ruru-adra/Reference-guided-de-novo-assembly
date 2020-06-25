@@ -2,7 +2,10 @@
 abyss-pe k=96 name=rice lib=’pea’ pea=’LANE5_R1 LANE5_R2’
 
 #using soapdenovo
-SOAPdenovo-127mer –all –s file.config –K 96 –R –o graph_prefix96 1>ass96.log 2>ass96.err
+SOAPdenovo-127mer –all –s file.config –K 96 –R –o graph_prefix96 1>ass96.log 2>ass96.err OR
+soapdenovo2-127mer all -s config.txt -K 96 -R -o PH9_soap
+
+#config.txt
 [LIB]
 avg_ins=180
 asm_flags=3
